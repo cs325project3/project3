@@ -19,9 +19,9 @@ void Tour::two_opt() {
     
     bool outerloopBreak = false;
     bool improvementFound = true;
-    
-    while(improvementFound == true) {
-        
+    int count = 0;
+    while(count < 6) {
+        count++;
         std::cout << "Back to while loop with tour dist: \n" << this->tourDistance;
         improvementFound = false;
         outerloopBreak = false;
@@ -60,9 +60,9 @@ void Tour::two_opt() {
                             //printf("in innner if\n");
                             //bestSavedDistance = savedDistance;
                             //savedEdge = j;
-                            std::cout << "Saved Distance of swap: " << savedDistance << "by swapping city: " << i+1 << "with: " << j <<"\n";
+                            std::cout << "Saved Distance of swap: " << savedDistance << " by swapping city: " << i+1 << " with: " << j <<"\n";
                             two_opt_swap(i + 1, j);
-                            this->tourDistance -= savedDistance;
+                            calculateTourDistance();
                             improvementFound = true;
                             outerloopBreak = true;
                             break;
@@ -169,7 +169,7 @@ void Tour::calculateTourDistance(){
         
         int finalDistance = tourGraph->getDistance(nextCity, this->visitedCities.at(0));
         totalDistance += finalDistance;
-        std::cout << "THE FUNC CALCUATED A DIST OF :" << totalDistance << "\n";
+        this->tourDistance = totalDistance;
     }
 }
 
