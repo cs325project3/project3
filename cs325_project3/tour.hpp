@@ -25,6 +25,7 @@ public:
     void two_opt();
     void two_opt_swap(int, int);
     void calculateTourDistance();
+    int getTourDistance();
     
 };
 

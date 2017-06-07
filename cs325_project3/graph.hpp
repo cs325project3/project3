@@ -7,11 +7,11 @@
 #define graph_hpp
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <vector>
 #include <cmath>
 #include "city.hpp"
 #include <string>
-#include <stdio.h>
 #include <iostream>
 #include <sstream>
 #include <fstream>
