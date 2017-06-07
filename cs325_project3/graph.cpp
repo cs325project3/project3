@@ -33,16 +33,16 @@ void Graph::setDistance(City *City1, City *City2){
     
     double distance = round(sqrt(xValue + yValue));
 
-    adjMatrix[City1->getId()][City2->getId()] = (int)distance;
+    adjMatrix[City1->getId()][City2->getId()] = distance;
 }
 
-City* Graph::getCity(int id) {
+City* Graph::getCity(int idx) {
     
-    if(cities.at(id)->getId() != id){
+    if(cities.at(idx)->getId() != idx){
         std::cout << "Id and idx do not match.\n";
     }
     
-    return cities.at(id);
+    return cities.at(idx);
 }
 
 void Graph::readFile(std::string fileName){
@@ -85,13 +85,13 @@ void Graph::printGraph(){
     }*/
     printf("Total number of cities: %d\n", numCities);
     
-    /*for(int i = 0; i < numCities; i++){
+    for(int i = 0; i < numCities; i++){
         
         for(int j = 0; j < numCities; j++){
             printf("%d ", getDistance(cities.at(i), cities.at(j)));
         }
         printf("\n");
-    }*/
+    }
     
 }
 

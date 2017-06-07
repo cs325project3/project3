@@ -12,7 +12,7 @@ int main(int argc, const char* argv[]) {
    
     Graph ourGraph;
     Tour ourTour(&ourGraph);
-    std::string filename = "tsp_example_simple.txt";
+    std::string filename = "tsp_example_supersimple.txt";
     
     ourGraph.readFile(filename);
     ourGraph.printGraph();

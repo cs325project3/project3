@@ -22,13 +22,13 @@ void Tour::two_opt() {
     int count = 0;
     while(count < 6) {
         count++;
-        std::cout << "Back to while loop with tour dist: \n" << this->tourDistance;
+        std::cout << "\n\nBack to while loop with tour dist: " << this->tourDistance << "\n";
         improvementFound = false;
         outerloopBreak = false;
         //printf("Another while loop itr..\n");
         for(int i = 1; i < tourGraph->getNumCities() - 2; i++) {
             
-            int currentEdgeLength = tourGraph->getDistance(tourGraph->getCity(i), tourGraph->getCity(i + 1));
+            int currentEdgeLength = tourGraph->getDistance(visitedCities.at(i), visitedCities.at(i+1));
             int bestSavedDistance = 0;
             int savedDistance;
             int savedEdge;
@@ -38,16 +38,20 @@ void Tour::two_opt() {
                 if (j != i-1 && j != i && j != i+1) {
                     
                     //printf("Another inner loop...\n");
-                    int comparisonEdge = tourGraph->getDistance(tourGraph->getCity(j), tourGraph->getCity(j + 1));
+                    int comparisonEdge = tourGraph->getDistance(visitedCities.at(j), visitedCities.at(j+1));
                     
                     int currentEdgeDistances = currentEdgeLength + comparisonEdge;
                     
-                    int swapped_edge_one_dist = tourGraph->getDistance(tourGraph->getCity(i), tourGraph->getCity(j));
-                    int swapped_edge_two_dist = tourGraph->getDistance(tourGraph->getCity(i + 1), tourGraph->getCity(j + 1));
+                    int swapped_edge_one_dist = tourGraph->getDistance(visitedCities.at(i), visitedCities.at(j));
+                    int swapped_edge_two_dist = tourGraph->getDistance(visitedCities.at(i+1), visitedCities.at(j+1));
                     
                     int swappedEdgeDistances = swapped_edge_one_dist + swapped_edge_two_dist;
                     
                     if (swappedEdgeDistances < currentEdgeDistances) {
+                        printf("The current edge being evaluated goes from city: %d to %d, for a distance of: %d\n", tourGraph->getCity(i)->getId(), tourGraph->getCity(i+1)->getId(), currentEdgeLength);
+                        printf("It is being evaluated against comparison edge from city: %d to %d, for a distance of: %d\n", tourGraph->getCity(j)->getId(), tourGraph->getCity(j+1)->getId(), comparisonEdge);
+                        printf("If they were swapped, new swapped edge one would be from city: %d to %d, for a new distance of: %d\n", tourGraph->getCity(i)->getId(), tourGraph->getCity(j)->getId(), swapped_edge_one_dist);
+                        printf("If they were swapped, new swapped edge two would be from city: %d to %d, for a new distance of: %d\n", tourGraph->getCity(i+1)->getId(), tourGraph->getCity(j+1)->getId(), swapped_edge_two_dist);
                         printf("currentEdgeDist: %d, swappedEdgeDistance: %d\n", currentEdgeDistances, swappedEdgeDistances);
                     }
                     
@@ -63,6 +67,7 @@ void Tour::two_opt() {
                             std::cout << "Saved Distance of swap: " << savedDistance << " by swapping city: " << i+1 << " with: " << j <<"\n";
                             two_opt_swap(i + 1, j);
                             calculateTourDistance();
+                            printTour();
                             improvementFound = true;
                             outerloopBreak = true;
                             break;
@@ -175,6 +180,10 @@ void Tour::calculateTourDistance(){
 
 void Tour::printTour(){
     printf("%d\n", tourDistance);
+    for(int i = 0; i < visitedCities.size(); i++){
+        printf("%d ", i);
+    }
+    printf("\n");
     for(int i = 0; i < visitedCities.size(); i++){
         printf("%d ", visitedCities.at(i)->getId());
     }
